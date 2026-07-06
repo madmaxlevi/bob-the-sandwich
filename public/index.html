@@ -43,9 +43,9 @@
   </style>
 </head>
 <body>
-  <h1>fart count</h1>
+  <h1>Magical Fart Counter by Max</h1>
   <div id="count">0</div>
-  <button onclick="incrementCount()">Click to Rip A Fart</button>
+  <button onclick="incrementCount()">Click to Fart</button>
   <p>This number is saved on the server. Refresh the page or come back later — it'll still be here.</p>
 
   <script>
@@ -55,7 +55,24 @@
       document.getElementById('count').textContent = data.count;
     }
 
+    // Picks a random fart sound from our collection and plays it
+    const fartSounds = [
+      'sounds/fart1.mp3',
+      'sounds/fart2.mp3',
+      'sounds/fart3.mp3',
+      'sounds/fart4.mp3',
+      'sounds/fart5.mp3',
+      'sounds/fart6.mp3'
+    ];
+
+    function playFartSound() {
+      const randomIndex = Math.floor(Math.random() * fartSounds.length);
+      const audio = new Audio(fartSounds[randomIndex]);
+      audio.play();
+    }
+
     async function incrementCount() {
+      playFartSound();
       const res = await fetch('/api/increment', { method: 'POST' });
       const data = await res.json();
       document.getElementById('count').textContent = data.count;
