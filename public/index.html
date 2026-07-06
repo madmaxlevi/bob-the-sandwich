@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Max's Test App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1a1a2e;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    #count {
+      font-size: 80px;
+      margin: 20px 0;
+      color: #7c3aed;
+    }
+    button {
+      font-size: 20px;
+      padding: 15px 30px;
+      background: #7c3aed;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #6d28d9;
+    }
+    p {
+      color: #aaa;
+      max-width: 400px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>fart count</h1>
+  <div id="count">0</div>
+  <button onclick="incrementCount()">Click Me</button>
+  <p>This number is saved on the server. Refresh the page or come back later — it'll still be here.</p>
+
+  <script>
+    async function loadCount() {
+      const res = await fetch('/api/count');
+      const data = await res.json();
+      document.getElementById('count').textContent = data.count;
+    }
+
+    async function incrementCount() {
+      const res = await fetch('/api/increment', { method: 'POST' });
+      const data = await res.json();
+      document.getElementById('count').textContent = data.count;
+    }
+
+    loadCount();
+  </script>
+</body>
+</html>
